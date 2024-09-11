@@ -10,19 +10,18 @@ vec2 randomGradient(vec2 p) {
   float x = dot(p, vec2(123.4, 234.5));
   float y = dot(p, vec2(234.5, 345.6));
   vec2 gradient = vec2(x, y);
-  gradient = sin(gradient);
-  gradient = gradient * 43758.5453;
+  gradient = sin(gradient) * 43758.5453;
 
-  gradient = sin(gradient);
+  gradient = sin(gradient + time);
   return gradient;
 }
 
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution;
 
-  vec3 color = vec3(1.0);
+  vec3 color = vec3(0.0);
 
-  uv *= 4.0;
+  uv *= 8.0;
   vec2 gridId = floor(uv);
   vec2 gridUv = fract(uv);
   color = vec3(gridId, 0.0);
@@ -54,8 +53,9 @@ void main() {
   float t = mix(dotTl, dotTr, gridUv.x);
   float perlin = mix(b, t, gridUv.y);
 
-  color = vec3(perlin);
+  float billow = abs(perlin);
+  color = vec3(billow);
 
-
+  color = mix(vec3(0.91, 0.85, 0.78), vec3(0.0), color);
   gl_FragColor = vec4(color, 1.0);
 }

@@ -6,10 +6,20 @@ import noiseFrag from "~/shader/noise.frag?raw"
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+const { onLoop } = useRenderLoop()
+
 const uniforms = {
   resolution: { value: new Vector2(width, height) },
   time: { value: 0 },
 }
+
+onLoop(({ elapsed }) => {
+  uniforms.time.value = elapsed;
+})
+
+// setInterval(() => {
+//   uniforms.time.value += 1;
+// }, 1000)
 </script>
 
 <template>
