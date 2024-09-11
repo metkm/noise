@@ -58,9 +58,13 @@ void main() {
   float billow = abs(perlin);
   color = vec3(billow);
 
-  // color = vec3(clamp(gridId.x, 0.0, 8.0));
-  color = smoothstep(0.001, 0.002, color);
+  // One line
+  // color = smoothstep(0.001, 0.002, color);
 
-  color = mix(vec3(0.91, 0.85, 0.78), vec3(0.0), color);
+  // Multiple lines
+  color = round(color / 0.05) * 0.05;
+  // color = smoothstep(0.2, 0.8, color);
+
+  color = mix(vec3(0.35, 0.12, 0.71), vec3(0.0), color);
   gl_FragColor = vec4(color, 1.0);
 }
