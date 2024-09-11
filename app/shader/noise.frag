@@ -62,8 +62,14 @@ void main() {
   // color = smoothstep(0.001, 0.002, color);
 
   // Multiple lines
-  color = round(color / 0.05) * 0.05;
-  // color = smoothstep(0.2, 0.8, color);
+  // color = round(color / 0.10) * 0.10;
+
+  // Multiple lines 2
+  float st = round(billow / 0.08) * 0.08;
+  float st_low = st - st;
+  float st_high = st + st;
+  float st_mid = (st_low + st_high) / 4.0; // or divide by 2
+  color = vec3(step(billow, st_mid + 0.035));
 
   color = mix(vec3(0.35, 0.12, 0.71), vec3(0.0), color);
   gl_FragColor = vec4(color, 1.0);
